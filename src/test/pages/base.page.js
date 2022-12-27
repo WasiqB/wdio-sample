@@ -1,8 +1,10 @@
+import { tapOn } from "../../utils/actions";
+
 export const BasePage = {
   async navigateToLogin() {
-    await $("~Login").click();
+    await tapOn("~Login");
   },
   async navigateToDrag() {
-    await $("~Drag").click();
+    await tapOn("~Drag");
   },
 };

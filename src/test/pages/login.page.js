@@ -1,29 +1,30 @@
 import { BasePage } from "./base.page.js";
+import { enterText, tapOn } from "../../utils/actions.js";
 
 export const LoginPage = {
   ...BasePage,
   get userName() {
-    return $("~input-email");
+    return "~input-email";
   },
   get password() {
-    return $("~input-password");
+    return "~input-password";
   },
   get loginButton() {
-    return $("~button-LOGIN");
+    return "~button-LOGIN";
   },
   get signUpButton() {
-    return $("~button-sign-up-container");
+    return "~button-sign-up-container";
   },
   loginFormButton() {
-    return $("~button-login-container");
+    return "~button-login-container";
   },
   async login(username, password) {
     await this.navigateToLogin();
-    await this.userName.setValue(username);
-    await this.password.setValue(password);
-    await this.loginButton.click();
+    await enterText(this.userName, username);
+    await enterText(this.password, password);
+    await tapOn(this.loginButton);
   },
   async signUp() {
-    await this.signUpButton.click();
+    await tapOn(this.signUpButton);
   },
 };
