@@ -1,27 +1,26 @@
 {
-  "name": "cqa-appium-poc",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Wasiq Bhamla",
-  "license": "MIT",
-  "private": true,
-  "packageManager": "yarn@3.3.1",
+  "name": "wdio-sample",
+  "type": "commonjs",
   "devDependencies": {
-    "@types/node": "^18.11.17",
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.7",
+    "@babel/preset-env": "^7.20.2",
+    "@babel/register": "^7.18.9",
     "@wdio/appium-service": "^8.0.13",
     "@wdio/cli": "^8.0.13",
-    "@wdio/globals": "^8.0.13",
+    "@wdio/devtools-service": "^8.0.13",
+    "@wdio/dot-reporter": "^8.0.13",
     "@wdio/local-runner": "^8.0.13",
     "@wdio/mocha-framework": "^8.0.13",
-    "@wdio/types": "^8.0.11",
-    "ts-node": "^10.9.1",
-    "typescript": "^4.9.4"
+    "@wdio/spec-reporter": "^8.0.13",
+    "appium": "^1.22.3",
+    "chromedriver": "^108.0.0",
+    "wdio-chromedriver-service": "^8.0.1",
+    "wdio-html-nice-reporter": "^8.0.6",
+    "wdio-vscode-service": "^5.0.0",
+    "wdio-wait-for": "^3.0.1"
   },
   "scripts": {
-    "android": "wdio run ./src/conf/wdio.android.conf.ts"
-  },
-  "dependencies": {
-    "expect-webdriverio": "^4.0.1",
-    "webdriverio": "^8.0.13"
+    "android": "wdio run ./src/conf/wdio.android.conf.js --suite login"
   }
 }

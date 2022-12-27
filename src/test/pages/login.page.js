@@ -1,4 +1,4 @@
-import { BasePage } from "@pages/base.page";
+import { BasePage } from "./base.page.js";
 
 export const LoginPage = {
   ...BasePage,
@@ -14,12 +14,13 @@ export const LoginPage = {
   get signUpButton() {
     return $("~button-sign-up-container");
   },
-  get loginFormButton() {
+  loginFormButton() {
     return $("~button-login-container");
   },
-  async login(username: string, password: string) {
-    await this.inputUsername.setValue(username);
-    await this.inputPassword.setValue(password);
+  async login(username, password) {
+    await this.navigateToLogin();
+    await this.userName.setValue(username);
+    await this.password.setValue(password);
     await this.loginButton.click();
   },
   async signUp() {

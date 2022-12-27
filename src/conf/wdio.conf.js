@@ -1,31 +1,41 @@
-import type { Options } from "@wdio/types";
+const host = "127.0.0.1";
+const port = 4723;
 
-export const CommonConfig: Options.Testrunner = {
+const waitforTimeout = 30000;
+const commandTimeout = 30000;
+
+export const config = {
   runner: "local",
-  autoCompileOpts: {
-    tsNodeOpts: {
-      project: "./tsconfig.json",
-    },
-  },
   path: "/wd/hub",
   port: 4723,
-  specs: ["./src/test/specs/**/*.ts"],
   maxInstances: 1,
-  capabilities: [
-    {
-      maxInstances: 5,
-      browserName: "chrome",
-    },
-  ],
   logLevel: "info",
+  outputDir: "./logs",
   bail: 0,
   baseUrl: "http://localhost",
   waitforTimeout: 10000,
   connectionRetryTimeout: 120000,
   connectionRetryCount: 3,
-  services: ["appium"],
+  services: [
+    [
+      "appium",
+      {
+        logPath: "./logs",
+        waitStartTime: 6000,
+        waitforTimeout: waitforTimeout,
+        args: {
+          address: host,
+          port: port,
+          commandTimeout: commandTimeout,
+          sessionOverride: true,
+          debugLogSpacing: true,
+        },
+        command: "appium",
+      },
+    ],
+  ],
   framework: "mocha",
-  reporters: ["spec", "html-nice"],
+  reporters: ["spec"],
   mochaOpts: {
     ui: "bdd",
     timeout: 60000,
@@ -43,8 +53,10 @@ export const CommonConfig: Options.Testrunner = {
    * @param {Object} config wdio configuration object
    * @param {Array.<Object>} capabilities list of capabilities details
    */
-  // onPrepare: function (config, capabilities) {
-  // },
+  onPrepare: function (config, capabilities) {
+    console.log("In `onPrepare` hook:");
+    console.log({ config, capabilities });
+  },
   /**
    * Gets executed before a worker process is spawned and can be used to initialise specific service
    * for that worker as well as modify runtime environments in an async fashion.
@@ -82,8 +94,11 @@ export const CommonConfig: Options.Testrunner = {
    * @param {Array.<String>} specs        List of spec file paths that are to be run
    * @param {Object}         browser      instance of created browser/device session
    */
-  // before: function (capabilities, specs) {
-  // },
+  before: function (capabilities, specs) {
+    driver.updateSettings({
+      ignoreUnimportantViews: true,
+    });
+  },
   /**
    * Runs before a WebdriverIO command gets executed.
    * @param {String} commandName hook command name
